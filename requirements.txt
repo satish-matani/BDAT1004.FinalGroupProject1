@@ -4,3 +4,4 @@ pytz==2021.3
 Flask-Paginate==0.5.0
 pytz
 gunicorn
+Werkzeug==2.2.2
