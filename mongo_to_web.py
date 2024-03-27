@@ -7,7 +7,7 @@ from math import ceil
 from flask import jsonify
 
 
-app = flask(__name__)
+app = Flask(__name__)
 server = app.server
 
 # Function to get pagination parameters
