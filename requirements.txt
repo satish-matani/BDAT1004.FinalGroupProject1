@@ -6,4 +6,3 @@ requests==2.22.0
 pytz
 math
 time
-requests
