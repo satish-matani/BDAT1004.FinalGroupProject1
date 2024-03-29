@@ -8,6 +8,7 @@ from flask import jsonify
 
 
 app = Flask(__name__)
+server=app.server
 
 # Function to get pagination parameters
 def get_paginated_crypto_data(offset=0, per_page=20):
