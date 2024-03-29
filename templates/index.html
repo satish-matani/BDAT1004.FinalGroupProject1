@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Prices</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #crypto-input {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        #search-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #search-btn:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 16px;
+            margin: 0 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .pagination a:hover {
+            background-color: #45a049;
+        }
+
+        /* Add this CSS to your existing CSS or create a new CSS file */
+
+        /* Style for the button */
+        .top-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Style for the button itself */
+        .top-right button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        /* Hover effect for the button */
+        .top-right button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+
+
+  
+</head>
+<body>
+    <h1>Cryptocurrency Prices</h1>
+
+    <form action="/filter" method="POST">
+        <label for="crypto-input">Enter Cryptocurrency Symbols (separated by comma):</label>
+        <input type="text" id="crypto-input" name="cryptos" placeholder="Enter symbols to search e.g. BTC, ETH">
+        <button type="submit" id="search-btn">Search</button>
+    </form>
+
+    <div class="top-right">
+        <form action="/charts">
+            <button type="submit">Charts</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp (EDT)</th>
+                <th>Symbol</th>
+                <th>Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in crypto_data %}
+            <tr>
+                <td>{{ data.timestamp|datetimeformat }}</td>
+                <td>{{ data.symbol }}</td>
+                <td>{{ data.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <a href="{{ url_for('index', page=1, per_page=per_page) }}">First</a>
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('index', page=page - 1, per_page=per_page) }}">Previous</a>
+        {% endif %}
+        <span>{{ pagination.page }} / {{ total_pages }}</span>
+        {% if pagination.has_next %}
+            <a href="{{ url_for('index', page=page + 1, per_page=per_page) }}">Next</a>
+        {% endif %}
+        <a href="{{ url_for('index', page=total_pages, per_page=per_page) }}">Last</a>
+    </div>
+
+
+</body>
+</html>
