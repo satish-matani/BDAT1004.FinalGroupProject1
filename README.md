@@ -1,2 +1,3 @@
-# BDAT1005.FinalGroupProject1
-BDAT 1004 Final Group Project 1
+# Group1.BDAT1004.FinalAssignment
+Group1 BDAT1004. FinalAssignment
+
